@@ -1,26 +1,17 @@
-﻿//import { Math } from "./build/three.module";
-
 class BasicAgent
 {
-    constructor(pos)
+    constructor(scene)
     {
-        //its position in the scene
-        this.Position = pos;
-
         //visual element
-        this.Geometry = new THREE.ConeGeometry(5, 20, 32);
+        this.Geometry = new THREE.ConeGeometry(1, 5, 8);
         this.Material = new THREE.MeshNormalMaterial();
         this.Mesh = new THREE.Mesh(this.Geometry, this.Material);
+        // console.log(this.Mesh.position);
+
+        scene.add(this.Mesh);
 
         //id
-        this.ID = CreateID();
-        print(this.ID);
-    }
-
-    CreateID()
-    {
-        //creates a random ID for this instance of the Agent
-        return (Math.floor(Math.random() * 10000));
+        this.ID = this.Geometry.id;
     }
 
 }
@@ -28,16 +19,30 @@ class BasicAgent
 
 class MovingAgent extends BasicAgent
 {
-    constructor(_MaxSpeed, _MaxForce, _Mass)
+    constructor(scene)
     {
-        super();
+        super(scene);
+
         //MaxSpeed
-        this.MaxSpeed = 0.0;
+        this.MaxSpeed = 30;
         //MaxForce
-        this.MaxForce = 0.0;
+        this.MaxForce = 4.0;
         //Mass
-        this.Mass = 0.0;
+        this.Mass = 1.0;
+        //Direction
+        this.Direction = new THREE.Vector3();
+
+        this.Steering = new SteeringBehaviors(this);
+    }
+
+    get position()
+    {
+      return this.Mesh.position;
+    }
+
+    set position(value)
+    {
+      this.Mesh.position = value;
     }
 
 }
-
