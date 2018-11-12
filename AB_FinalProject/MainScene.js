@@ -23,8 +23,7 @@ function init() {
     // scene.add(Mesh);
 
     let agent = new MovingAgent(scene);
-    let target = new THREE.Vector3(0, -10, 0);
-    agent.Steering.Seek(target);
+    agent.run();
 
     // scene.add(mesh);
 

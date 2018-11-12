@@ -31,8 +31,15 @@ class MovingAgent extends BasicAgent
         this.Mass = 1.0;
         //Direction
         this.Direction = new THREE.Vector3();
+        //Heading
+        this.Heading = new THREE.Vector3();
 
-        this.Steering = new SteeringBehaviors(this);
+        this.Steering = new SteeringBehaviors(this, new THREE.Vector3(0, -10, 0));
+    }
+
+    run()
+    {
+      this.Steering.updateForces();
     }
 
     get position()
